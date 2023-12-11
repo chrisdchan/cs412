@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cocktail Details</title>
+    <!-- Add CSS links if needed -->
+</head>
+<body>
+    <h1>Cocktail Search Results</h1>
+    <div>
+        <div>
+            <% cocktails.forEach(function(cocktail) { %>
+                <div>
+                    <h2><%= cocktail.strDrink %></h2>
+                    <img src="<%= cocktail.strDrinkThumb %>" alt="<%= cocktail.strDrink %>">
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html>

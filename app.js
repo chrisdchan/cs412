@@ -1,19 +1,20 @@
+require('dotenv').config();
+
 const express = require('express');
-const dotenv = require('dotenv')
-const router = require('./routes/router');
+const router = require('./PS4.js');
 
 const app = express();
 const PORT = 3000;
 
 app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').__express);
+
+app.use(express.json())
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); 
 app.use('/', router);
 
-app.use(express.json())
-dotenv.config()
-
-const COCKTAIL_API_KEY = process.env.COCKTAIL_API_KEY
 
 
 app.listen(PORT, () => {
