@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-const router = require('./PS4.js');
+const router = require('./routes.js');
 
 const app = express();
 const PORT = 3000;
