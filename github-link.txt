@@ -1,2 +1,3 @@
 PS4: https://github.com/chrisdchan/cs412-app/tree/PS4
 PS5b: https://github.com/chrisdchan/cs412-app/tree/PS5b
+PS6: https://github.com/chrisdchan/cs412-app/tree/PS6
