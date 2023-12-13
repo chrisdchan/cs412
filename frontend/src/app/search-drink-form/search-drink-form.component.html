@@ -1,2 +1,7 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="searchTerm" placeholder="Enter search term">
+  <button type="submit" [disabled]="!searchForm.valid">Query</button>
+</form>
+
 <button (click)="submit()">Search For Vodka</button>
 <button (click)="back()">Clear</button>

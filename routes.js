@@ -70,7 +70,7 @@ const handleRequestWithCallback = (req, res) => {
 }
 
 const handleRequestWithCache = async (req, res) => {
-
+    console.log("Handling Request");
     const searchTerm = req.body.cocktail
     const cacheKey = `search:${searchTerm}`
     const cachedData = await redisClient.get(cacheKey)
@@ -87,12 +87,12 @@ const handleRequestWithCache = async (req, res) => {
             let data;
             try {
                 data = JSON.parse(body);
+                const firstThreeDrinks = data['drinks'].slice(0, 3)
+                redisClient.setEx(cacheKey, 15, JSON.stringify(firstThreeDrinks))
+                res.json({cached: false, data: firstThreeDrinks })
             } catch(parseError) {
                 return res.status(500).json({ error: parseError.message })
             }
-            const firstThreeDrinks = data['drinks'].slice(0, 3)
-            redisClient.setEx(cacheKey, 15, JSON.stringify(firstThreeDrinks))
-            res.json({cached: false, data: firstThreeDrinks })
         });
     }
 }
