@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request')
+const fs = require('fs')
 
 const redis = require('redis');
 const redisClient = redis.createClient({});
@@ -125,5 +126,42 @@ router.post('/search-cocktail-2', (req, res) => {
 router.post('/search-cocktail-3', (req, res) => {
     handleRequestWithFetch(req, res)
 })
+
+router.post('/save-to-file', (req, res) => {
+
+    const fileName = 'storage/vodka.json'
+    const searchTerm = "vodka"
+    const url = `https://the-cocktail-db.p.rapidapi.com/search.php?s=${searchTerm}`
+    const options = {
+        url: url,
+        headers: {
+            'X-RapidAPI-Key': process.env.COCKTAIL_API_KEY,
+            'X-RapidAPI-Host': 'the-cocktail-db.p.rapidapi.com'
+        }
+    };
+    request.get(options, (error, response, body) => {
+        if (error) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        let data;
+        try {
+            data = JSON.parse(body);
+        } catch(parseError) {
+            return res.status(500).json({ error: parseError.message })
+        }
+        // const firstThreeDrinks = data['drinks'].slice(0, 3)
+        fs.writeFile(fileName, JSON.stringify(data), (err) => {
+            if (err) {
+                console.error('Error writing file:', err);
+                return res.status(500).send('Error saving data to file');
+            }
+
+            res.send('Data saved to file');
+        })
+    })
+})
+
+
 
 module.exports = router;

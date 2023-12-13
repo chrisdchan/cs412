@@ -1,0 +1,11 @@
+
+<div *ngIf="cocktails">
+  <h3>Cocktails That Have Vodka</h3>
+  <div *ngFor="let cocktail of cocktails">
+    <h3>
+      {{cocktail.strDrink}}
+    </h3>
+    <img [src]="cocktail.strDrinkThumb" [alt]="cocktail.strDrink">
+  </div>
+</div>
+
